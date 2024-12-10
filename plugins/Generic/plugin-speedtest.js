@@ -42,7 +42,7 @@ const onRun = async () => {
   }
 
   await Plugins.sleep(1_000)
-  Plugins.message.update(id, 'Проверка скорости исходящего потока, пожалуйста, подождите...', 20000_000)
+  Plugins.message.update(id, 'Проверка скорости загрузки, пожалуйста, подождите...', 20000_000)
 
   let end
   let speed
@@ -61,11 +61,11 @@ const onRun = async () => {
     speed = 'Error'
     duration = 'Error'
 
-    Plugins.message.update(id, 'Проверка скорости исходящего потока не удалась', 1_000)
+    Plugins.message.update(id, 'Проверка скорости загрузки не удалась', 1_000)
   }
 
   if (FileExists) {
-    Plugins.message.update(id, 'Проверка скорости исходящего потока завершена', 1_000)
+    Plugins.message.update(id, 'Проверка скорости загрузки завершена', 1_000)
 
     const Duration = (end - start) / 1000
     const Speed = mb / Duration
@@ -91,5 +91,5 @@ const onRun = async () => {
     ${text1}
     ${text2}`
 
-  Plugins.alert('测速结果', message)
+  Plugins.alert('Результаты теста скорости', message)
 }
