@@ -32,10 +32,10 @@ const Rolling = async (confirm = true) => {
   await checkLatestVersion()
 
   const GFC_URL = 'https://api.github.com/repos/GUI-for-Cores/GUI.for.Clash/releases/tags/rolling-release'
-  const GFS_URL = 'https://api.github.com/repos/GUI-for-Cores/GUI.for.SingBox/releases/tags/rolling-release'
+  const GFS_URL = 'https://api.github.com/repos/Obscur0/GUI.for.SingBox/releases/tags/rolling-release'
   const url = Plugins.APP_TITLE.includes('Clash') ? GFC_URL : GFS_URL
 
-  const { update, destroy, error } = Plugins.message.info(`[${Plugin.name}] 检测中...`, 999999)
+  const { update, destroy, error } = Plugins.message.info(`[${Plugin.name}] Тестирование...`, 999999)
 
   const { body } = await Plugins.HttpGet(url, {
     Authorization: Plugins.getGitHubApiAuthorization()
@@ -54,7 +54,7 @@ const Rolling = async (confirm = true) => {
 
   if (!ZipUrl || !VersionUrl) {
     destroy()
-    throw '出现一些错误，无法找到更新资源包'
+    throw 'Произошли некоторые ошибки, и не удалось найти пакет ресурсов для обновления'
   }
 
   let localVersion = ''
@@ -70,19 +70,19 @@ const Rolling = async (confirm = true) => {
 
   if (!remoteVersion) {
     destroy()
-    throw '无法获取远程版本信息'
+    throw 'Не удается получить информацию об удаленной версии'
   }
 
   if (localVersion === remoteVersion) {
-    Plugins.message.success(`[${Plugin.name}] 当前版本已是最新`)
+    Plugins.message.success(`[${Plugin.name}] Текущая версия является актуальной`)
     destroy()
     return
   }
 
-  let changelog = '维护性更新'
+  let changelog = 'Обновления обслуживания'
 
   if (ChangelogUrl && confirm) {
-    update('正在获取更新日志...')
+    update('Получение журнала обновлений...')
     const { body } = await Plugins.HttpGet(ChangelogUrl)
     changelog = body
   }
@@ -90,17 +90,17 @@ const Rolling = async (confirm = true) => {
 
   confirm && (await Plugins.confirm(Plugin.name, changelog, { type: 'markdown' }))
 
-  const { update: update2, destroy: destroy2 } = Plugins.message.info('正在更新...')
+  const { update: update2, destroy: destroy2 } = Plugins.message.info('Обновление...')
   try {
     await Plugins.Download(ZipUrl, ZipFile, {}, (progress, total) => {
-      update2('正在更新...' + ((progress / total) * 100).toFixed(2) + '%')
+      update2('Обновление...' + ((progress / total) * 100).toFixed(2) + '%')
     })
     await Plugins.ignoredError(Plugins.Movefile, 'data/rolling-release', BackupFile)
     await Plugins.UnzipZIPFile(ZipFile, 'data')
     await Plugins.Removefile(ZipFile)
     await Plugins.Removefile(BackupFile)
     destroy2()
-    const ok = await Plugins.confirm(Plugin.name, '更新成功，是否立即重载界面？').catch(() => 0)
+    const ok = await Plugins.confirm(Plugin.name, 'Обновление прошло успешно, нужно ли перезагрузить интерфейс?').catch(() => 0)
     ok && Plugins.WindowReloadApp()
   } catch (err) {
     error(err.message || err)
@@ -115,12 +115,12 @@ const Rolling = async (confirm = true) => {
 const Recovery = async () => {
   await checkRollingReleaseEnabled()
   if (!(await Plugins.FileExists('data/rolling-release'))) {
-    Plugins.message.info('无需恢复，此版本已是默认版本。')
+    Plugins.message.info('Восстанавливать не нужно, эта версия уже установлена по умолчанию.')
     return
   }
-  await Plugins.confirm(Plugin.name, '是否移除当前版本，恢复为默认版本？\n这将移除 data/rolling-release 目录。')
+  await Plugins.confirm(Plugin.name, 'Удаляете ли вы текущую версию и восстанавливаете ли ее до версии по умолчанию?\nЭто приведет к удалению каталога data/rolling-release.')
   await Plugins.Removefile('data/rolling-release')
-  const ok = await Plugins.confirm(Plugin.name, '恢复成功，是否立即重载界面').catch(() => 0)
+  const ok = await Plugins.confirm(Plugin.name, 'Восстановление прошло успешно, нужно ли перезагрузить интерфейс?').catch(() => 0)
   ok && (await Plugins.WindowReloadApp())
 }
 
@@ -136,7 +136,7 @@ const Changelog = async () => {
 const checkRollingReleaseEnabled = async () => {
   const appSettings = Plugins.useAppSettingsStore()
   if (!appSettings.app.rollingRelease) {
-    throw '请在【设置】中，开启【启用滚动发行】功能。'
+    throw 'Пожалуйста, включите функцию [Включить плавающий выпуск] в [Настройках].'
   }
 }
 
@@ -150,6 +150,6 @@ const checkLatestVersion = async () => {
   const { tag_name, message } = body
   if (message) throw message
   if (tag_name !== Plugins.APP_VERSION) {
-    throw '无法跨大版本升级，请通过 设置 - 关于，更新APP！'
+    throw 'Невозможно обновить основные версии, пожалуйста, обновите приложение через Настройки - О программе！'
   }
 }
