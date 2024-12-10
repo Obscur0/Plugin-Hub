@@ -1196,8 +1196,8 @@
   },
   {
     "id": "plugin-speedtest",
-    "name": "SpeedTest 速度测试",
-    "description": "测试当前节点延迟和下行速度。Supported by: QiChaiQiChai",
+    "name": "SpeedTest",
+    "description": "Проверьте текущую задержку узла и скорость загрузки. Supported by: QiChaiQiChai",
     "type": "Http",
     "url": "https://raw.githubusercontent.com/Obscur0/Plugin-Hub/main/plugins/Generic/plugin-speedtest.js",
     "path": "data/plugins/plugin-speedtest.js",
@@ -1207,8 +1207,8 @@
     "configuration": [
       {
         "id": "ID_112j2shp",
-        "title": "测速文件大小？",
-        "description": "请选择下行速度测试文件大小",
+        "title": "Размер файла для теста скорости?",
+        "description": "Пожалуйста, выберите размер файла для теста скорости загрузки",
         "key": "testFileSize",
         "component": "Select",
         "value": "10",
