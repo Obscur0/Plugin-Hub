@@ -35,7 +35,7 @@ const Rolling = async (confirm = true) => {
   const GFS_URL = 'https://api.github.com/repos/Obscur0/GUI.for.SingBox/releases/tags/rolling-release'
   const url = Plugins.APP_TITLE.includes('Clash') ? GFC_URL : GFS_URL
 
-  const { update, destroy, error } = Plugins.message.info(`[${Plugin.name}] Тестирование...`, 999999)
+  const { update, destroy, error } = Plugins.message.info(`[${Plugin.name}] Проверка...`, 999999)
 
   const { body } = await Plugins.HttpGet(url, {
     Authorization: Plugins.getGitHubApiAuthorization()
