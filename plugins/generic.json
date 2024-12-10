@@ -122,16 +122,16 @@
   },
   {
     "id": "plugin-rolling-release",
-    "name": "滚动发行",
-    "description": "提升GUI升级体验，获取更快、更新、更稳定的版本更新。",
+    "name": "Плавающий выпуск",
+    "description": "Улучшите процесс обновления графического пользовательского интерфейса и получайте более быстрые, новые и стабильные обновления версий.",
     "type": "Http",
     "url": "https://raw.githubusercontent.com/Obscur0/Plugin-Hub/main/plugins/Generic/plugin-rolling-release.js",
     "path": "data/plugins/plugin-rolling-release.js",
     "triggers": ["on::manual", "on::ready", "on::startup"],
     "menus": {
-      "滚动版本": "Rolling",
-      "恢复版本": "Recovery",
-      "更新日志": "Changelog"
+      "Плавающая версия": "Rolling",
+      "Восстановление": "Recovery",
+      "Журнал изменений": "Changelog"
     },
     "configuration": [
       {
