@@ -10,7 +10,7 @@ const onRun = async () => {
 
   const pingurl = 'http://connectivitycheck.gstatic.com/generate_204'
 
-  const { id } = Plugins.message.info('延迟测试中，请稍后...', 200_000)
+  const { id } = Plugins.message.info('Идет проверка задержки, пожалуйста, подождите...', 200_000)
 
   let pingduration // 在共同作用域内声明变量
 
@@ -26,23 +26,23 @@ const onRun = async () => {
       Exists = false
 
       pingduration = 'Error'
-      Plugins.message.update(id, '延迟测试失败')
+      Plugins.message.update(id, 'Тест задержки не пройден')
     } else {
       pingduration = pingDuration.toFixed(2) + ' ms  ' // 保留两位小数
 
       Exists = true
-      Plugins.message.update(id, '延迟测试成功')
+      Plugins.message.update(id, 'Проверка задержки прошла успешно')
     }
   } catch (error) {
     Exists = false
 
     pingduration = 'Error'
     Plugins.message.destroy(arch)
-    Plugins.message.update(id, '延迟测试失败')
+    Plugins.message.update(id, 'Тест задержки не пройден')
   }
 
   await Plugins.sleep(1_000)
-  Plugins.message.update(id, '下行速度测试中，请稍后...', 20000_000)
+  Plugins.message.update(id, 'Проверка скорости исходящего потока, пожалуйста, подождите...', 20000_000)
 
   let end
   let speed
@@ -61,11 +61,11 @@ const onRun = async () => {
     speed = 'Error'
     duration = 'Error'
 
-    Plugins.message.update(id, '下行速度测试失败', 1_000)
+    Plugins.message.update(id, 'Проверка скорости исходящего потока не удалась', 1_000)
   }
 
   if (FileExists) {
-    Plugins.message.update(id, '下行速度测试完成', 1_000)
+    Plugins.message.update(id, 'Проверка скорости исходящего потока завершена', 1_000)
 
     const Duration = (end - start) / 1000
     const Speed = mb / Duration
@@ -82,9 +82,9 @@ const onRun = async () => {
   const endtime = Date.now()
   const Time = ((endtime - starttime) / 1000).toFixed(2) + ' s  ' // 保留两位小数
 
-  const text0 = `⚡ 延迟: ${pingduration} `
-  const text1 = `💨 下行速度: ${speed} `
-  const text2 = `⏳ 测试耗时：${Time} `
+  const text0 = `⚡ Пинг: ${pingduration} `
+  const text1 = `💨 Скорость: ${speed} `
+  const text2 = `⏳ Время：${Time} `
 
   const message = `
     ${text0}
