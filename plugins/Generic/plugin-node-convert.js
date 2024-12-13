@@ -117,7 +117,7 @@ const onSubscribe = async (proxies) => {
   const isClashProxies = proxies.some((proxy) => proxy.name && !proxy.tag)
 
   // 如果是clash格式，并且是GFS，则转为sing-box格式
-  if (isClashProxies && Plugins.APP_TITLE.includes('SingBox')) {
+  if (isClashProxies && Plugins.APP_TITLE.includes('KulichVPN')) {
     const _proxies = []
     const protocolForSingBoxMap = protocolForSingBox()
     for (let proxy of proxies) {
