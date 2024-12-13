@@ -32,7 +32,7 @@ const protocolForSingBox = () => ({
  * 插件钩子：点击运行按钮时
  */
 const onRun = async () => {
-  let arr = await Plugins.prompt('请输入分享链接：', '', { placeholder: '(ss|ssr|vmess|vless|hysteria2|hysteria|tuic|wireguard|trojan)://', type: 'code' })
+  let arr = await Plugins.prompt('Пожалуйста, введите ссылку подписки：', '', { placeholder: '(ss|ssr|vmess|vless|hysteria2|hysteria|tuic|wireguard|trojan)://', type: 'code' })
 
   if (Plugins.isValidBase64(arr)) {
     arr = Plugins.base64Decode(arr)
@@ -49,7 +49,7 @@ const onRun = async () => {
 
     const protocol = protocolForClash[schema.toLowerCase()]
     if (!protocol) {
-      console.log(`未实现当前协议[ ${schema} ]`)
+      console.log(`Текущий протокол не реализован[ ${schema} ]`)
       continue
     }
 
@@ -57,7 +57,7 @@ const onRun = async () => {
       const proxy = protocol.parse(line)
       proxies.push(proxy)
     } catch (error) {
-      console.log('解析错误Clash节点', error)
+      console.log('Ошибка синтаксического анализа узла Clash', error)
     }
   }
 
@@ -73,7 +73,7 @@ const onRun = async () => {
       const _proxy = protocolForSingBoxMap[proxy.type](proxy)
       singbox_proxies.push(_proxy)
     } catch (error) {
-      console.log('解析错误SingBox节点', error)
+      console.log('Ошибка синтаксического анализа узла SingBox', error)
     }
   }
 
@@ -81,10 +81,10 @@ const onRun = async () => {
 
   const result = Plugins.APP_TITLE.includes('SingBox') ? JSON.stringify(singbox_proxies, null, 2) : Plugins.YAML.stringify(clash_proxies)
 
-  await Plugins.confirm('转换结果如下', result)
+  await Plugins.confirm('Результат конвертации следующий', result)
 
   await Plugins.ClipboardSetText(result)
-  Plugins.message.success('已复制')
+  Plugins.message.success('Скопировано')
 }
 
 /**
@@ -101,14 +101,14 @@ const onSubscribe = async (proxies) => {
       const [schema] = line.split('://')
       const protocol = protocolForClash[schema.toLowerCase()]
       if (!protocol) {
-        console.log(`未实现当前协议[ ${schema} ]`)
+        console.log(`Текущий протокол не реализован[ ${schema} ]`)
         continue
       }
       try {
         const proxy = protocol.parse(line.trim())
         _proxies.push(proxy)
       } catch (error) {
-        console.log('解析Clash节点发生错误', error)
+        console.log('Произошла ошибка при разборе узла Clash.', error)
       }
     }
     proxies = ClashMeta_Producer().produce(_proxies, 'internal', {})
@@ -125,7 +125,7 @@ const onSubscribe = async (proxies) => {
         const _proxy = protocolForSingBoxMap[proxy.type](proxy)
         _proxies.push(_proxy)
       } catch (error) {
-        console.log('解析SingBox节点发生错误', error)
+        console.log('Произошла ошибка при разборе узла SingBox.', error)
       }
     }
     proxies = _proxies
