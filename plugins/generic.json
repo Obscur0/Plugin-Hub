@@ -107,8 +107,8 @@
   },
   {
     "id": "plugin-node-convert",
-    "name": "节点转换",
-    "description": "节点格式转换插件，支持v2Ray格式转clash、clash格式转sing-box。",
+    "name": "Преобразование узлов",
+    "description": "Плагин для преобразования формата Node, поддерживает формат V2Ray в clash, формат clash в sing-box。",
     "type": "Http",
     "url": "https://raw.githubusercontent.com/Obscur0/Plugin-Hub/main/plugins/Generic/plugin-node-convert.js",
     "path": "data/plugins/plugin-node-convert.js",
